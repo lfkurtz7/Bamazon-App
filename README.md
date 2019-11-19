@@ -5,7 +5,7 @@
  Bamazon is an Amazon-like storefront that takes orders from customers, depeletes stock from the stores inventory, and calculates the order total. Bamazon is a CLI application that populates data from a mySQL database and displays it in the terminal using node.js.
 
 ## Demo
-![demo](https://drive.google.com/file/d/10oJ1PRGJ3TigLlLmTj79dj2GJWjvt_Fc/view)
+(https://drive.google.com/file/d/10oJ1PRGJ3TigLlLmTj79dj2GJWjvt_Fc/view)
 
 ----
 ## Commands and Outcomes
