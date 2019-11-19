@@ -1,4 +1,4 @@
-var { prompt } = require("inquirer");
+var inquirer = require("inquirer");
 var connection = require('./utils/connection');
 var { bCustomerPurchase } = require('./utils/questions');
 
@@ -12,31 +12,28 @@ function displayProducts() {
     if (err) throw err;
     console.table(res);
     chooseProduct(res);
-    //connection.end();
   });
 }
 
 function chooseProduct(db) {
-  prompt(bCustomerPurchase(getProductName(db)))
+  inquirer
+    .prompt(bCustomerPurchase(getProductName(db)))
     .then(function ({ product_name, itemQuan }) {
-      //console.log({ product_name, itemQuan })
-      // var { product_name, itemQuan } = answers;
       var item = GetItemByName(product_name, db);
-      if (item.stock_quantity > parseInt(itemQuan)) {
+      if(item.stock_quantity > parseInt(itemQuan)){
 
-        console.log("Sell stuff!");
+        console.log("Start Shopping!");
         changeQuantity(parseInt(itemQuan), item.id);
-
+        console.log("Total Price: $" + (itemQuan * item.price).toFixed(2));
       } else {
-        // console.log(`Insufficient quantity! Only ${item.stock_quantity} available!`)
         console.log('Insufficient quantity! Only %s available!', item.stock_quantity)
         chooseProduct(db);
       }
     })
 }
-function GetItemByName(name, db) {
-  for (var i in db) {
-    if (db[i].product_name === name) {
+function GetItemByName(name, db){
+  for(var i in db){
+    if(db[i].product_name === name){
       return db[i]
     }
   }
@@ -56,9 +53,14 @@ function changeQuantity(soldAmnt, id) {
                 WHERE id = ?`;
   var data = ["products", soldAmnt, id];
 
-  connection.query(sqlQry, data, function (err, results) {
-    if (err) throw err;
-    // console.log(results);
+  connection.query(sqlQry, data, function(err, results){
+    if(err) throw err;
     displayProducts();
+    //connection.end();
   })
 }
+
+
+
+ 
+
